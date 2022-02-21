@@ -1,13 +1,18 @@
 
 from album.models import Album
+from photo.models import Photo
 from rest_framework import serializers
 from photo.serializers import PhotoSerializer
 
-
 class AlbumSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    photos = serializers.SerializerMethodField()
+
+    def get_photos(self, album):
+        photos = Photo.objects.filter(is_thumbnail=True, album=album)
+        serializer = PhotoSerializer(instance=photos, many=True)
+        return serializer.data
 
     class Meta:
         model = Album
-        fields = ['id', 'title', 'subtitle', 'description', 'publication_date', 'created_at', 'updated_at', 'photos']
+        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'publication_date', 'created_at', 'updated_at', 'photos']
