@@ -87,18 +87,21 @@ CORS_ALLOWED_ORIGINS = [
 
 WSGI_APPLICATION = 'jianping_backend.wsgi.application'
 
+DIGITAL_OCEAN_REGION=os.getenv("DIGITAL_OCEAN_REGION")
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = 'https://%s.digitaloceanspaces.com' % DIGITAL_OCEAN_REGION
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
+AWS_DEFAULT_ACL = 'public-read'
 
 if(DEBUG is True):
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 else:
-    AWS_S3_CUSTOM_DOMAIN = '%s.nyc3.cdn.digitaloceanspaces.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_CUSTOM_DOMAIN = '%s.%s.cdn.digitaloceanspaces.com' %(AWS_STORAGE_BUCKET_NAME, DIGITAL_OCEAN_REGION)
 
 AWS_LOCATION = 'static'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
