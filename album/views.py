@@ -8,4 +8,4 @@ class Album(viewsets.ReadOnlyModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
     filter_backends = [DjangoFilterBackend]
-    pagination_class = Pagination 
+    pagination_class = Pagination
