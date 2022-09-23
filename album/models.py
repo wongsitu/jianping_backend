@@ -20,5 +20,5 @@ class Album(models.Model):
         self.slug = slugify(self.title)
         super(Album, self).save(*args, **kwargs)
 
-    def __str__(self):
+    def __format__(self):
         return self.title
