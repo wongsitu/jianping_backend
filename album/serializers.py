@@ -16,5 +16,5 @@ class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = ['id', 'slug', 'title', 'title_en', 'title_cn', 
-                'subtitle', 'subtitle_en', 'subtitle_cn', 'description', 'description_en', 'description_cn'
+                'subtitle', 'subtitle_en', 'subtitle_cn', 'description', 'description_en', 'description_cn',
                 'publication_date', 'created_at', 'updated_at', 'photos']
