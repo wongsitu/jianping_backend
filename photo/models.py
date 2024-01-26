@@ -19,4 +19,5 @@ class Photo(models.Model):
     is_thumbnail = models.BooleanField(default=False, name="is_thumbnail")
 
     def __str__(self):
+        print(self.title)
         return self.title
